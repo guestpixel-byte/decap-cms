@@ -455,7 +455,7 @@ function GlobalStyles() {
         body {
           font-family: ${fonts.primary};
           font-weight: normal;
-          background-color: ${colors.background};
+          background-color: #000;
           color: ${colors.text};
           margin: 0;
         }
