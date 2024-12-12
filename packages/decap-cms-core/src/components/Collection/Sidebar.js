@@ -19,14 +19,35 @@ const styles = {
   `,
 };
 
+const SearchContainer = styled.div`
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.hidden {
+    display: none;
+  }
+`;
+
 const SidebarContainer = styled.aside`
   ${components.card};
   width: 250px;
   padding: 8px 0 12px;
-  position: fixed;
-  max-height: calc(100vh - 112px);
+  height: fit-content;
   display: flex;
   flex-direction: column;
+  transition: width 0.3s ease;
+
+  &.collapsed {
+    width: 60px;
+
+    h2, ul {
+      display: none;
+    }
+
+    ${SearchContainer} {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 `;
 
 const SidebarHeading = styled.h2`
@@ -35,6 +56,16 @@ const SidebarHeading = styled.h2`
   line-height: 37px;
   padding: 0;
   margin: 10px 20px;
+  color: ${colors.textLead};
+`;
+
+const CollapseButton = styled.button`
+  align-self: flex-end;
+  margin-right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
   color: ${colors.textLead};
 `;
 
@@ -77,6 +108,32 @@ export class Sidebar extends React.Component {
     t: PropTypes.func.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isCollapsed: window.innerWidth < 768, // Collapse if screen width is less than 768px
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    const shouldCollapse = window.innerWidth < 768;
+    if (shouldCollapse !== this.state.isCollapsed) {
+      this.setState({ isCollapsed: shouldCollapse });
+    }
+  };
+
+  toggleCollapse = () => {
+    this.setState(prevState => ({ isCollapsed: !prevState.isCollapsed }));
+  };
+
   renderLink = (collection, filterTerm) => {
     const collectionName = collection.get('name');
     if (collection.has('nested')) {
@@ -106,17 +163,24 @@ export class Sidebar extends React.Component {
 
   render() {
     const { collections, collection, isSearchEnabled, searchTerm, t, filterTerm } = this.props;
+    const { isCollapsed } = this.state;
+
     return (
-      <SidebarContainer>
+      <SidebarContainer className={isCollapsed ? 'collapsed' : ''}>
+        <CollapseButton onClick={this.toggleCollapse}>
+          {isCollapsed ? '→' : '←'}
+        </CollapseButton>
         <SidebarHeading>{t('collection.sidebar.collections')}</SidebarHeading>
-        {isSearchEnabled && (
-          <CollectionSearch
-            searchTerm={searchTerm}
-            collections={collections}
-            collection={collection}
-            onSubmit={(query, collection) => searchCollections(query, collection)}
-          />
-        )}
+        <SearchContainer className={isCollapsed ? 'hidden' : ''}>
+          {isSearchEnabled && (
+            <CollectionSearch
+              searchTerm={searchTerm}
+              collections={collections}
+              collection={collection}
+              onSubmit={(query, collection) => searchCollections(query, collection)}
+            />
+          )}
+        </SearchContainer>
         <SidebarNavList>
           {collections
             .toList()

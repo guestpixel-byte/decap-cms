@@ -62,7 +62,7 @@ const colors = {
   text: colorsRaw.gray,
   textLight: colorsRaw.white,
   textLead: colorsRaw.grayDark,
-  background: colorsRaw.grayLight,
+  background: '#fff',
   foreground: colorsRaw.white,
   active: colorsRaw.blue,
   activeBackground: colorsRaw.blueLight,
@@ -455,7 +455,7 @@ function GlobalStyles() {
         body {
           font-family: ${fonts.primary};
           font-weight: normal;
-          background-color: #000;
+          background-color: ${colors.background};
           color: ${colors.text};
           margin: 0;
         }
