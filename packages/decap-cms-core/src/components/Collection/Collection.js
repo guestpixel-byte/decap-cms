@@ -26,10 +26,18 @@ import {
 } from '../../reducers/entries';
 
 const CollectionContainer = styled.div`
+  width: 100%;
+  max-width: 1280px;
+  overflow: hidden;
   display: flex;
+  gap: 1rem;
+  border: 2px solid red;
+  padding: 1rem;
 `;
 
 const CollectionMain = styled.main`
+  width: 100%;
+  border: 2px solid #000;
   
 `;
 

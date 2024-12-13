@@ -6,7 +6,6 @@ import { css } from '@emotion/react';
 import { translate } from 'react-polyglot';
 import { NavLink } from 'react-router-dom';
 import {
-  Icon,
   Dropdown,
   DropdownItem,
   StyledDropdownButton,
@@ -51,6 +50,13 @@ const AppHeaderContent = styled.div`
   max-width: 1440px;
   padding: 0 12px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    min-width: 100%;
+    flex-direction: column;
+    padding: 0;
+    position: relative;
+  }
 `;
 
 const AppHeaderButton = styled.button`
@@ -63,31 +69,6 @@ const AppHeaderButton = styled.button`
   display: inline-flex;
   padding: 16px 20px;
   align-items: center;
-
-  ${Icon} {
-    margin-right: 4px;
-    color: #b3b9c4;
-  }
-
-  &:hover,
-  &:active,
-  &:focus-visible {
-    ${styles.buttonActive};
-
-    ${Icon} {
-      ${styles.buttonActive};
-    }
-  }
-
-  ${props => css`
-    &.${props.activeClassName} {
-      ${styles.buttonActive};
-
-      ${Icon} {
-        ${styles.buttonActive};
-      }
-    }
-  `};
 `;
 
 const AppHeaderNavLink = AppHeaderButton.withComponent(NavLink);
@@ -95,6 +76,74 @@ const AppHeaderNavLink = AppHeaderButton.withComponent(NavLink);
 const AppHeaderActions = styled.div`
   display: inline-flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+`;
+
+const HamburgerMenu = styled.div`
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+  }
+`;
+
+const HamburgerLine = styled.div`
+  height: 3px;
+  width: 100%;
+  background-color: #7b8290;
+  transition: all 0.3s ease;
+
+  ${props => props.isOpen && css`
+    &:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+  `}
+`;
+
+const MobileMenu = styled.div`
+  display: flex;
+  
+  @media (max-width: 768px) {
+    display: ${props => (props.isOpen ? 'flex' : 'none')};
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: ${colors.foreground};
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+`;
+
+const AppHeaderNavList = styled.ul`
+  display: flex;
+  margin: 0;
+  list-style: none;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const AppHeaderQuickNewButton = styled(StyledDropdownButton)`
@@ -106,17 +155,17 @@ const AppHeaderQuickNewButton = styled(StyledDropdownButton)`
   &:after {
     top: 11px;
   }
-`;
 
-const AppHeaderNavList = styled.ul`
-  display: flex;
-  margin: 0;
-  list-style: none;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 `;
 
 class Header extends React.Component {
   static propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     collections: ImmutablePropTypes.map.isRequired,
     onCreateEntryClick: PropTypes.func.isRequired,
     onLogoutClick: PropTypes.func.isRequired,
@@ -126,6 +175,11 @@ class Header extends React.Component {
     isTestRepo: PropTypes.bool,
     t: PropTypes.func.isRequired,
     checkBackendStatus: PropTypes.func.isRequired,
+    showMediaButton: PropTypes.bool,
+  };
+
+  state = {
+    isMobileMenuOpen: false
   };
 
   intervalId;
@@ -140,16 +194,23 @@ class Header extends React.Component {
     clearInterval(this.intervalId);
   }
 
+  toggleMobileMenu = () => {
+    this.setState(prevState => ({
+      isMobileMenuOpen: !prevState.isMobileMenuOpen
+    }));
+  };
+
   handleCreatePostClick = collectionName => {
     const { onCreateEntryClick } = this.props;
     if (onCreateEntryClick) {
       onCreateEntryClick(collectionName);
+      this.setState({ isMobileMenuOpen: false });
     }
   };
 
   render() {
     const {
-      user,
+      user = {},
       collections,
       onLogoutClick,
       openMediaLibrary,
@@ -160,6 +221,8 @@ class Header extends React.Component {
       showMediaButton,
     } = this.props;
 
+    const { isMobileMenuOpen } = this.state;
+
     const creatableCollections = collections
       .filter(collection => collection.get('create'))
       .toList();
@@ -167,62 +230,76 @@ class Header extends React.Component {
     return (
       <AppHeader>
         <AppHeaderContent>
-          <nav>
-            <AppHeaderNavList>
-              <li>
-                <AppHeaderNavLink
-                  to="/"
-                  activeClassName="header-link-active"
-                  isActive={(match, location) => location.pathname.startsWith('/collections/')}
-                >
-                  <Icon type="page" />
-                  {t('app.header.content')}
-                </AppHeaderNavLink>
-              </li>
-              {hasWorkflow && (
+          <HamburgerMenu onClick={this.toggleMobileMenu}>
+            <HamburgerLine isOpen={isMobileMenuOpen} />
+            <HamburgerLine isOpen={isMobileMenuOpen} />
+            <HamburgerLine isOpen={isMobileMenuOpen} />
+          </HamburgerMenu>
+          <MobileMenu isOpen={isMobileMenuOpen}>
+            <nav>
+              <AppHeaderNavList>
                 <li>
-                  <AppHeaderNavLink to="/workflow" activeClassName="header-link-active">
-                    <Icon type="workflow" />
-                    {t('app.header.workflow')}
+                  <AppHeaderNavLink
+                    to="/"
+                    activeClassName="header-link-active"
+                    isActive={(match, location) => location.pathname.startsWith('/collections/')}
+                    onClick={this.toggleMobileMenu}
+                  >
+                    {t('app.header.content')}
                   </AppHeaderNavLink>
                 </li>
-              )}
-              {showMediaButton && (
-                <li>
-                  <AppHeaderButton onClick={openMediaLibrary}>
-                    <Icon type="media-alt" />
-                    {t('app.header.media')}
-                  </AppHeaderButton>
-                </li>
-              )}
-            </AppHeaderNavList>
-          </nav>
-          <AppHeaderActions>
-            {creatableCollections.size > 0 && (
-              <Dropdown
-                renderButton={() => (
-                  <AppHeaderQuickNewButton> {t('app.header.quickAdd')}</AppHeaderQuickNewButton>
+                {hasWorkflow && (
+                  <li>
+                    <AppHeaderNavLink 
+                      to="/workflow" 
+                      activeClassName="header-link-active"
+                      onClick={this.toggleMobileMenu}
+                    >
+                      {t('app.header.workflow')}
+                    </AppHeaderNavLink>
+                  </li>
                 )}
-                dropdownTopOverlap="30px"
-                dropdownWidth="160px"
-                dropdownPosition="left"
-              >
-                {creatableCollections.map(collection => (
-                  <DropdownItem
-                    key={collection.get('name')}
-                    label={collection.get('label_singular') || collection.get('label')}
-                    onClick={() => this.handleCreatePostClick(collection.get('name'))}
-                  />
-                ))}
-              </Dropdown>
-            )}
-            <SettingsDropdown
-              displayUrl={displayUrl}
-              isTestRepo={isTestRepo}
-              imageUrl={user?.avatar_url}
-              onLogoutClick={onLogoutClick}
-            />
-          </AppHeaderActions>
+                {showMediaButton && (
+                  <li>
+                    <AppHeaderButton 
+                      onClick={() => {
+                        openMediaLibrary();
+                        this.toggleMobileMenu();
+                      }}
+                    >
+                      {t('app.header.media')}
+                    </AppHeaderButton>
+                  </li>
+                )}
+              </AppHeaderNavList>
+            </nav>
+            <AppHeaderActions>
+              {creatableCollections.size > 0 && (
+                <Dropdown
+                  renderButton={() => (
+                    <AppHeaderQuickNewButton> {t('app.header.quickAdd')}</AppHeaderQuickNewButton>
+                  )}
+                  dropdownTopOverlap="30px"
+                  dropdownWidth="160px"
+                  dropdownPosition="left"
+                >
+                  {creatableCollections.map(collection => (
+                    <DropdownItem
+                      key={collection.get('name')}
+                      label={collection.get('label_singular') || collection.get('label')}
+                      onClick={() => this.handleCreatePostClick(collection.get('name'))}
+                    />
+                  ))}
+                </Dropdown>
+              )}
+              <SettingsDropdown
+                displayUrl={displayUrl}
+                isTestRepo={isTestRepo}
+                imageUrl={user.avatar_url}
+                onLogoutClick={onLogoutClick}
+              />
+            </AppHeaderActions>
+          </MobileMenu>
         </AppHeaderContent>
       </AppHeader>
     );

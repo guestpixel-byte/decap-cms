@@ -35,6 +35,7 @@ const SidebarContainer = styled.aside`
   display: flex;
   flex-direction: column;
   transition: width 0.3s ease;
+  border: 2px solid #000;
 
   &.collapsed {
     width: 60px;
