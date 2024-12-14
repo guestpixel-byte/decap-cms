@@ -46,6 +46,7 @@ function ReactSplitPaneGlobalStyles() {
   return (
     <Global
       styles={css`
+
         .Resizer.vertical {
           width: 2px;
           cursor: col-resize;
@@ -80,6 +81,7 @@ function ReactSplitPaneGlobalStyles() {
 const StyledSplitPane = styled(SplitPane)`
   ${styles.splitPane};
 
+
   /**
    * Quick fix for preview pane not fully displaying in Safari
    */
@@ -94,7 +96,7 @@ const NoPreviewContainer = styled.div`
 
 const EditorContainer = styled.div`
   width: 100%;
-  min-width: 800px;
+  
   height: 100%;
   position: absolute;
   top: 0;
@@ -127,6 +129,10 @@ const ViewControls = styled.div`
   top: 10px;
   right: 10px;
   z-index: ${zIndex.zIndex299};
+
+  @media (max-width: 768px) {
+  display: none;
+  }
 `;
 
 function EditorContent({
@@ -157,10 +163,15 @@ function isPreviewEnabled(collection, entry) {
 class EditorInterface extends Component {
   state = {
     showEventBlocker: false,
-    previewVisible: localStorage.getItem(PREVIEW_VISIBLE) !== 'false',
+    previewVisible: false, // Always start with preview hidden
     scrollSyncEnabled: localStorage.getItem(SCROLL_SYNC_ENABLED) !== 'false',
     i18nVisible: localStorage.getItem(I18N_VISIBLE) !== 'false',
   };
+
+  componentDidMount() {
+    // Ensure preview is always set to false in localStorage when component mounts
+    localStorage.setItem(PREVIEW_VISIBLE, 'false');
+  }
 
   handleSplitPaneDragStart = () => {
     this.setState({ showEventBlocker: true });
@@ -187,7 +198,7 @@ class EditorInterface extends Component {
   handleTogglePreview = () => {
     const newPreviewVisible = !this.state.previewVisible;
     this.setState({ previewVisible: newPreviewVisible });
-    localStorage.setItem(PREVIEW_VISIBLE, newPreviewVisible);
+    localStorage.setItem(PREVIEW_VISIBLE, 'false'); // Always set to false
   };
 
   handleToggleScrollSync = () => {
@@ -437,3 +448,7 @@ EditorInterface.propTypes = {
 };
 
 export default EditorInterface;
+
+
+
+

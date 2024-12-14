@@ -17,12 +17,15 @@ import {
 } from 'decap-cms-ui-default';
 import { connect } from 'react-redux';
 
-import { SettingsDropdown } from '../UI';
 import { checkBackendStatus } from '../../actions/status';
 
 const styles = {
   buttonActive: css`
     color: ${colors.active};
+  `,
+  logoutButton: css`
+    color: red;
+    font-weight: bold;
   `,
 };
 
@@ -47,7 +50,7 @@ const AppHeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   min-width: 800px;
-  max-width: 1440px;
+  max-width: 1280px;
   padding: 0 12px;
   margin: 0 auto;
 
@@ -122,7 +125,9 @@ const HamburgerLine = styled.div`
 
 const MobileMenu = styled.div`
   display: flex;
-  
+  justify-content: space-between;
+  width: 100%;
+
   @media (max-width: 768px) {
     display: ${props => (props.isOpen ? 'flex' : 'none')};
     flex-direction: column;
@@ -137,6 +142,7 @@ const MobileMenu = styled.div`
 
 const AppHeaderNavList = styled.ul`
   display: flex;
+  align-items: center;
   margin: 0;
   list-style: none;
 
@@ -271,33 +277,32 @@ class Header extends React.Component {
                     </AppHeaderButton>
                   </li>
                 )}
+                {creatableCollections.size > 0 && (
+                  <li>
+                    <Dropdown
+                      renderButton={() => (
+                        <AppHeaderQuickNewButton>{t('app.header.quickAdd')}</AppHeaderQuickNewButton>
+                      )}
+                      dropdownTopOverlap="30px"
+                      dropdownWidth="160px"
+                      dropdownPosition="left"
+                    >
+                      {creatableCollections.map(collection => (
+                        <DropdownItem
+                          key={collection.get('name')}
+                          label={collection.get('label_singular') || collection.get('label')}
+                          onClick={() => this.handleCreatePostClick(collection.get('name'))}
+                        />
+                      ))}
+                    </Dropdown>
+                  </li>
+                )}
               </AppHeaderNavList>
             </nav>
             <AppHeaderActions>
-              {creatableCollections.size > 0 && (
-                <Dropdown
-                  renderButton={() => (
-                    <AppHeaderQuickNewButton> {t('app.header.quickAdd')}</AppHeaderQuickNewButton>
-                  )}
-                  dropdownTopOverlap="30px"
-                  dropdownWidth="160px"
-                  dropdownPosition="left"
-                >
-                  {creatableCollections.map(collection => (
-                    <DropdownItem
-                      key={collection.get('name')}
-                      label={collection.get('label_singular') || collection.get('label')}
-                      onClick={() => this.handleCreatePostClick(collection.get('name'))}
-                    />
-                  ))}
-                </Dropdown>
-              )}
-              <SettingsDropdown
-                displayUrl={displayUrl}
-                isTestRepo={isTestRepo}
-                imageUrl={user.avatar_url}
-                onLogoutClick={onLogoutClick}
-              />
+              <AppHeaderButton css={styles.logoutButton} onClick={onLogoutClick}>
+                Logout
+              </AppHeaderButton>
             </AppHeaderActions>
           </MobileMenu>
         </AppHeaderContent>

@@ -29,7 +29,7 @@ const SearchContainer = styled.div`
 
 const SidebarContainer = styled.aside`
   ${components.card};
-  width: 250px;
+  width: 350px;
   padding: 8px 0 12px;
   height: fit-content;
   display: flex;

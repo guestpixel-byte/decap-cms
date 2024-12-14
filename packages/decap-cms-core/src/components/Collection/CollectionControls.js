@@ -11,8 +11,8 @@ const CollectionControlsContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
-  margin-top: 22px;
-  width: ${lengths.topCardWidth};
+  margin: 0 1rem;
+  
   max-width: 100%;
 
   & > div {

@@ -11,10 +11,11 @@ import { selectEntryCollectionTitle } from '../../../reducers/collections';
 
 const ListCard = styled.li`
   ${components.card};
-  width: ${lengths.topCardWidth};
+  width: 100%;
   margin-left: 12px;
   margin-bottom: 10px;
   overflow: hidden;
+  background-color: grey;
 `;
 
 const ListCardLink = styled(Link)`

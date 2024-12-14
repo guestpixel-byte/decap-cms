@@ -39,6 +39,10 @@ const styles = {
     background-color: ${colorsRaw.tealLight};
     color: ${colorsRaw.tealDark};
   `,
+  logoutButton: css`
+  color: red;
+  font-weight: bold;
+  `,
 };
 
 const TooltipText = styled.div`
@@ -89,20 +93,34 @@ const ToolbarContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  min-width: 800px;
+ 
   z-index: ${zIndex.zIndex300};
   background-color: #fff;
   height: 66px;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: fit-content;
+    gap: 1rem;
+  }
+
+
 `;
 
 const ToolbarSectionMain = styled.div`
   ${styles.toolbarSection};
-  flex: 10;
+  
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    padding: 1rem 0;
+    flex-direction: column;
+  }
 `;
 
 const ToolbarSubSectionFirst = styled.div`
@@ -112,6 +130,10 @@ const ToolbarSubSectionFirst = styled.div`
 
 const ToolbarSubSectionLast = styled(ToolbarSubSectionFirst)`
   justify-content: flex-end;
+
+    @media (max-width: 768px) {
+    margin-top: 2rem;
+  }
 `;
 
 const ToolbarSectionBackLink = styled(Link)`
@@ -123,6 +145,10 @@ const ToolbarSectionBackLink = styled(Link)`
   &:hover,
   &:focus {
     background-color: #f1f2f4;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
   }
 `;
 
@@ -673,13 +699,6 @@ export class EditorToolbar extends React.Component {
               : this.renderSimpleDeployPreviewControls()}
           </ToolbarSubSectionLast>
         </ToolbarSectionMain>
-        <ToolbarSectionMeta>
-          <SettingsDropdown
-            displayUrl={displayUrl}
-            imageUrl={user?.avatar_url}
-            onLogoutClick={onLogoutClick}
-          />
-        </ToolbarSectionMeta>
       </ToolbarContainer>
     );
   }
