@@ -156,6 +156,7 @@ const ToolbarSectionMeta = styled.div`
   ${styles.toolbarSection};
   border-left-width: 1px;
   padding: 0 7px;
+  
 `;
 
 const ToolbarDropdown = styled(Dropdown)`
