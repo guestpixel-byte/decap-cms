@@ -33,6 +33,7 @@ const fonts = {
  */
 const colorsRaw = {
   white: '#fff',
+  black: '#000',
   grayLight: '#eff0f4',
   gray: '#798291',
   grayDark: '#313d3e',
@@ -50,6 +51,11 @@ const colorsRaw = {
   teal: '#17a2b8',
   tealDark: '#117888',
   tealLight: '#ddf5f9',
+  // Dark Mode
+  blueDark: '#060b10',
+  blueLightDark: '#12181f',
+  greyBlue: '#1e242c',
+  blueMain: '#32e6e2'
 };
 
 const colors = {
@@ -59,17 +65,17 @@ const colors = {
   statusReviewBackground: colorsRaw.yellow,
   statusReadyText: colorsRaw.green,
   statusReadyBackground: colorsRaw.greenLight,
-  text: colorsRaw.gray,
+  text: colorsRaw.white,
   textLight: colorsRaw.white,
-  textLead: colorsRaw.grayDark,
-  background: '#fff',
-  foreground: colorsRaw.white,
-  active: colorsRaw.blue,
-  activeBackground: colorsRaw.blueLight,
+  textLead: colorsRaw.white,
+  background: colorsRaw.blueDark,
+  foreground: colorsRaw.blueLightDark,
+  active: colorsRaw.blueMain,
+  activeBackground: colorsRaw.greyBlue,
   inactive: colorsRaw.gray,
-  button: colorsRaw.grayDark,
-  buttonText: colorsRaw.white,
-  inputBackground: colorsRaw.white,
+  button: colorsRaw.blueMain,
+  buttonText: colorsRaw.black,
+  inputBackground: '#1e242c',
   infoText: colorsRaw.blue,
   infoBackground: colorsRaw.blueLight,
   successText: colorsRaw.green,
@@ -78,8 +84,8 @@ const colors = {
   warnBackground: colorsRaw.yellow,
   errorText: colorsRaw.red,
   errorBackground: colorsRaw.redLight,
-  textFieldBorder: '#dfdfe3',
-  controlLabel: '#5D626F',
+  textFieldBorder: '#12181f',
+  controlLabel: '#fff',
   checkerboardLight: '#f2f2f2',
   checkerboardDark: '#e6e6e6',
   mediaDraftText: colorsRaw.purple,
@@ -316,11 +322,12 @@ const components = {
     margin-bottom: 28px;
   `,
   cardTopHeading: css`
-    font-size: 22px;
+    font-size: 1.5rem;
     font-weight: 600;
-    line-height: 37px;
+    line-height: 1.7rem;
     margin: 0;
     padding: 0;
+    color: #fff;
   `,
   cardTopDescription: css`
     max-width: 480px;
@@ -333,7 +340,7 @@ const components = {
   `,
   dropdownList: css`
     ${shadows.dropDeep};
-    background-color: ${colorsRaw.white};
+    background-color: #12181f;
     border-radius: ${lengths.borderRadius};
     overflow: hidden;
   `,
@@ -341,7 +348,7 @@ const components = {
     ${buttons.button};
     background-color: transparent;
     border-radius: 0;
-    color: ${colorsRaw.grayDark};
+    color: #fff;
     font-weight: 500;
     border-bottom: 1px solid #eaebf1;
     padding: 8px 14px;
@@ -370,48 +377,50 @@ const components = {
   `,
 };
 
+
 const reactSelectStyles = {
   control: styles => ({
     ...styles,
     border: 0,
     boxShadow: 'none',
     padding: '9px 0 9px 12px',
+    backgroundColor: '#1e242c', // Ensure control background isn't white
   }),
   option: (styles, state) => ({
     ...styles,
     backgroundColor: state.isSelected
-      ? `${colors.active}`
+      ? '#1e242c' // Highlight selected option
       : state.isFocused
-      ? `${colors.activeBackground}`
-      : 'transparent',
+      ? '#1e242c' // Highlight focused option
+      : 'transparent', // Default background
     paddingLeft: '22px',
   }),
-  menu: styles => ({ ...styles, right: 0, zIndex: zIndex.zIndex300 }),
+  menu: styles => ({
+    ...styles,
+    backgroundColor: '#12181f', // Dropdown menu background
+    right: 0,
+    zIndex: 300,
+  }),
   container: styles => ({ ...styles, padding: '0 !important' }),
-  indicatorSeparator: (styles, state) =>
-    state.hasValue && state.selectProps.isClearable
-      ? { ...styles, backgroundColor: `${colors.textFieldBorder}` }
-      : { display: 'none' },
-  dropdownIndicator: styles => ({ ...styles, color: `${colors.controlLabel}` }),
-  clearIndicator: styles => ({ ...styles, color: `${colors.controlLabel}` }),
   multiValue: styles => ({
     ...styles,
-    backgroundColor: colors.background,
+    backgroundColor: 'lightgray', // Background for multi-value chips
   }),
   multiValueLabel: styles => ({
     ...styles,
-    color: colors.textLead,
+    color: 'black',
     fontWeight: 500,
   }),
-  multiValueRemove: styles => ({
+  singleValue: (styles) => ({
     ...styles,
-    color: colors.controlLabel,
-    ':hover': {
-      color: colors.errorText,
-      backgroundColor: colors.errorBackground,
-    },
+    color: colors.text, // Use a dynamic color from your colors object
+  }),
+  input: (styles) => ({
+    ...styles,
+    color: colors.text, // Set to white or use a dynamic theme color
   }),
 };
+
 
 const zIndex = {
   zIndex0: 0,
@@ -516,6 +525,35 @@ function GlobalStyles() {
         textarea {
           resize: none;
         }
+
+        /* Scroll Bar Settings */
+        ::-webkit-scrollbar {
+            width: 8px; /* Set the width of the scrollbar */
+            height: 8px; /* Set the height for horizontal scrollbars */
+        }
+          
+        ::-webkit-scrollbar-track {
+            background: black; /* Track color */
+            border-radius: 10px;
+        }
+          
+        ::-webkit-scrollbar-thumb {
+            background-color: #888; /* Thumb color */
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+          
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #555; /* Thumb color on hover */
+        }
+          
+          /* For Firefox */
+        * {
+            scrollbar-width: thin; /* Make scrollbar thin */
+            scrollbar-color: #888 black; /* Thumb and track colors */
+        }
+        
       `}
     />
   );

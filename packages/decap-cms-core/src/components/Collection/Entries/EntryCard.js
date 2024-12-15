@@ -15,7 +15,8 @@ const ListCard = styled.li`
   margin-left: 12px;
   margin-bottom: 10px;
   overflow: hidden;
-  background-color: grey;
+  background-color: #12181f;
+  
 `;
 
 const ListCardLink = styled(Link)`
@@ -24,7 +25,7 @@ const ListCardLink = styled(Link)`
   padding: 16px 20px;
 
   &:hover {
-    background-color: ${colors.foreground};
+    background-color: #1e242c;
   }
 `;
 
@@ -57,6 +58,7 @@ const CollectionLabel = styled.h2`
 
 const ListCardTitle = styled.h2`
   margin-bottom: 0;
+  color: #fff;
 `;
 
 const CardHeading = styled.h2`

@@ -49,7 +49,7 @@ const TreeNavLink = styled(NavLink)`
   align-items: center;
   padding: 8px;
   padding-left: ${props => props.depth * 16 + 18}px;
-  border-left: 2px solid #fff;
+  border-left: 2px solid #12181f;
 
   ${Icon} {
     margin-right: 4px;
@@ -60,9 +60,10 @@ const TreeNavLink = styled(NavLink)`
     &:hover,
     &:active,
     &.${props.activeClassName} {
-      color: ${colors.active};
-      background-color: ${colors.activeBackground};
-      border-left-color: #4863c6;
+      color: #fff;
+      background-color: #1e242c;
+      border-left-color: #32e6e2;
+      font-size: 1rem;
     }
   `};
 `;

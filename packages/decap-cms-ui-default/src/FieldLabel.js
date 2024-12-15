@@ -46,13 +46,13 @@ const FieldLabel = styled.label`
     top: 0;
     right: -4px;
     height: 100%;
-    width: 4px;
+    width: 0px;
     background-color: inherit;
   }
 
   &:after {
     border-bottom-left-radius: 3px;
-    background-color: #fff;
+    background-color: transparent;
   }
 `;
 

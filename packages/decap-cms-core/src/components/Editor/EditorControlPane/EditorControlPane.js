@@ -27,6 +27,7 @@ const ControlPaneContainer = styled.div`
   margin: 0 auto;
   padding-bottom: 16px;
   font-size: 16px;
+  
 `;
 
 const LocaleButton = styled(StyledDropdownButton)`

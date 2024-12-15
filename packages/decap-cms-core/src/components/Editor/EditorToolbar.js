@@ -33,7 +33,7 @@ const styles = {
     height: 100%;
     display: flex;
     align-items: center;
-    border: 0 solid ${colors.textFieldBorder};
+    border: 0 solid #32e6e2;
   `,
   publishedButton: css`
     background-color: ${colorsRaw.tealLight};
@@ -89,13 +89,18 @@ const DropdownButton = styled(StyledDropdownButton)`
 const ToolbarContainer = styled.div`
   box-shadow: 0 2px 6px 0 rgba(68, 74, 87, 0.05), 0 1px 3px 0 rgba(68, 74, 87, 0.1),
     0 2px 54px rgba(0, 0, 0, 0.1);
-  position: absolute;
+  position: absoulte;
   top: 0;
   left: 0;
   width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  border-radius: 33px;
+  border: 2px solid #000;
  
-  z-index: ${zIndex.zIndex300};
-  background-color: #fff;
+  z-index: ${zIndex.zIndex299};
+  background-color: #12181f;
   height: 66px;
   display: flex;
   justify-content: space-between;
@@ -111,28 +116,42 @@ const ToolbarContainer = styled.div`
 
 const ToolbarSectionMain = styled.div`
   ${styles.toolbarSection};
-  
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
 
   @media (max-width: 768px) {
     justify-content: center;
-    padding: 1rem 0;
     flex-direction: column;
+    padding: 0;
   }
 `;
 
 const ToolbarSubSectionFirst = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: space-around;
+  }
 `;
 
 const ToolbarSubSectionLast = styled(ToolbarSubSectionFirst)`
   justify-content: flex-end;
 
-    @media (max-width: 768px) {
-    margin-top: 2rem;
+
+
+  @media (max-width: 768px) {
+    margin-top: 1rem;
+    border-top: 2px solid #1e242c;
+    width: 100%;
+    border-bottom-left-radius: 33px;
+    border-bottom-right-radius: 33px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
   }
 `;
 
@@ -141,14 +160,21 @@ const ToolbarSectionBackLink = styled(Link)`
   border-right-width: 1px;
   font-weight: normal;
   padding: 0 20px;
+  border-top-left-radius: 33px;
+  border-bottom-left-radius: 33px;
+  border-bottom: 2px solid #1e242c;
 
   &:hover,
   &:focus {
-    background-color: #f1f2f4;
+    background-color: #1e242c;
   }
 
   @media (max-width: 768px) {
     padding: 1rem;
+    border-right-width: 0px;
+    border-top-left-radius: 33px;
+    border-top-right-radius: 33px;
+    border-bottom-left-radius: 0px;
   }
 `;
 
@@ -177,6 +203,7 @@ const BackArrow = styled.div`
 const BackCollection = styled.div`
   color: ${colors.textLead};
   font-size: 14px;
+  text-wrap: nowrap;
 `;
 
 const BackStatus = styled.div`
@@ -233,13 +260,13 @@ const StatusButton = styled(DropdownButton)`
 
 const PreviewButtonContainer = styled.div`
   margin-right: 12px;
-  color: ${colorsRaw.blue};
+  color: ${colorsRaw.blueMain};
   display: flex;
   align-items: center;
 
   a,
   ${Icon} {
-    color: ${colorsRaw.blue};
+    color: ${colorsRaw.blueMain};
   }
 
   ${Icon} {

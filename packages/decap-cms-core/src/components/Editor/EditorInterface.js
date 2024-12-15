@@ -96,20 +96,19 @@ const NoPreviewContainer = styled.div`
 
 const EditorContainer = styled.div`
   width: 100%;
-  
+  min-height: 80vh;
   height: 100%;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  overflow: hidden;
-  padding-top: 66px;
+  //overflow: hidden;
   background-color: ${colors.background};
 `;
 
 const Editor = styled.div`
-  height: 100%;
+  height: fit-content;
   margin: 0 auto;
-  position: relative;
+  
 `;
 
 const PreviewPaneContainer = styled.div`
@@ -122,12 +121,14 @@ const ControlPaneContainer = styled(PreviewPaneContainer)`
   padding: 0 16px;
   position: relative;
   overflow-x: hidden;
+  background-color: #060b10;
+  margin-bottom: 6rem;
 `;
 
 const ViewControls = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: fixed;
+  top: 150px;
+  right: 15px;
   z-index: ${zIndex.zIndex299};
 
   @media (max-width: 768px) {
@@ -168,10 +169,7 @@ class EditorInterface extends Component {
     i18nVisible: localStorage.getItem(I18N_VISIBLE) !== 'false',
   };
 
-  componentDidMount() {
-    // Ensure preview is always set to false in localStorage when component mounts
-    localStorage.setItem(PREVIEW_VISIBLE, 'false');
-  }
+
 
   handleSplitPaneDragStart = () => {
     this.setState({ showEventBlocker: true });
@@ -200,6 +198,11 @@ class EditorInterface extends Component {
     this.setState({ previewVisible: newPreviewVisible });
     localStorage.setItem(PREVIEW_VISIBLE, 'false'); // Always set to false
   };
+
+  componentDidMount() {
+    // Ensure preview is always set to false in localStorage when component mounts
+    localStorage.setItem(PREVIEW_VISIBLE, 'false');
+  }
 
   handleToggleScrollSync = () => {
     const newScrollSyncEnabled = !this.state.scrollSyncEnabled;

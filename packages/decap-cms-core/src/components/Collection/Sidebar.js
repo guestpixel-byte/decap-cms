@@ -13,14 +13,16 @@ import NestedCollection from './NestedCollection';
 
 const styles = {
   sidebarNavLinkActive: css`
-    color: ${colors.active};
-    background-color: ${colors.activeBackground};
-    border-left-color: #4863c6;
+    color: #fff;
+    background-color: #1e242c;
+    border-left-color: #32e6e2;
+    font-size: 1rem;
   `,
 };
 
 const SearchContainer = styled.div`
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  
 
   &.hidden {
     display: none;
@@ -29,16 +31,25 @@ const SearchContainer = styled.div`
 
 const SidebarContainer = styled.aside`
   ${components.card};
-  width: 350px;
+  max-width: 300px;
+  width: 100%;
   padding: 8px 0 12px;
   height: fit-content;
   display: flex;
   flex-direction: column;
   transition: width 0.3s ease;
   border: 2px solid #000;
+  background-color: #12181f;
 
   &.collapsed {
     width: 60px;
+    padding: .25rem;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      width: 40px
+    }
 
     h2, ul {
       display: none;
@@ -57,7 +68,7 @@ const SidebarHeading = styled.h2`
   line-height: 37px;
   padding: 0;
   margin: 10px 20px;
-  color: ${colors.textLead};
+  color: #fff;
 `;
 
 const CollapseButton = styled.button`
@@ -67,7 +78,11 @@ const CollapseButton = styled.button`
   border: none;
   cursor: pointer;
   font-size: 18px;
-  color: ${colors.textLead};
+  color: #fff;
+
+  @media (max-width: 768px) {
+    margin-right: 0px;
+  }
 `;
 
 const SidebarNavList = styled.ul`
@@ -82,7 +97,7 @@ const SidebarNavLink = styled(NavLink)`
   font-weight: 500;
   align-items: center;
   padding: 8px 18px;
-  border-left: 2px solid #fff;
+  border-left: 2px solid #12181f;
   z-index: -1;
 
   ${Icon} {

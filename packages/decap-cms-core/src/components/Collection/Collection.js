@@ -31,13 +31,17 @@ const CollectionContainer = styled.div`
   overflow: hidden;
   display: flex;
   gap: 1rem;
-  border: 2px solid red;
   padding: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const CollectionMain = styled.main`
   width: 100%;
   border: 2px solid #000;
+
   
 `;
 

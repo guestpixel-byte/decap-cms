@@ -43,6 +43,11 @@ const ExpandButton = styled.button`
 const AddButton = styled.button`
   ${buttons.button}
   ${buttons.widget}
+  background-color: #32e6e2;
+
+  &:hover {
+    background-color: #fff;
+  }
 
   ${Icon} {
     margin-left: 6px;

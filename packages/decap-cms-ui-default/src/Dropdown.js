@@ -20,6 +20,8 @@ const StyledDropdownButton = styled(DropdownButton)`
   padding-left: 20px;
   padding-right: 40px;
   position: relative;
+  background-color: #32e6e2;
+  color: #000;
 
   &:after {
     ${components.caretDown};
@@ -59,7 +61,7 @@ function StyledMenuItem({ isActive, isCheckedItem = false, ...props }) {
         &:not(:focus),
         &:not(:active) {
           background-color: ${isActive ? colors.activeBackground : 'inherit'};
-          color: ${isActive ? colors.active : '#313d3e'};
+          color: ${isActive ? colors.active : '#fff'};
           ${isCheckedItem ? 'display: flex; justify-content: start' : ''};
         }
         &:hover {
