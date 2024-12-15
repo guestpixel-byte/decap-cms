@@ -65,13 +65,17 @@ const AppHeaderContent = styled.div`
 const AppHeaderButton = styled.button`
   ${buttons.button};
   background: none;
-  color: #7b8290;
+  color: #fff;
   font-family: inherit;
   font-size: 16px;
   font-weight: 500;
   display: inline-flex;
   padding: 16px 20px;
   align-items: center;
+
+  &:hover {
+    color: #32e6e2
+  }
 `;
 
 const AppHeaderNavLink = AppHeaderButton.withComponent(NavLink);
@@ -81,9 +85,12 @@ const AppHeaderActions = styled.div`
   align-items: center;
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    display: flex;
+    justify-content: end;
     width: 100%;
-    align-items: stretch;
+    margin-right: 2rem;
+    
+    
   }
 `;
 
@@ -107,7 +114,7 @@ const HamburgerMenu = styled.div`
 const HamburgerLine = styled.div`
   height: 3px;
   width: 100%;
-  background-color: #7b8290;
+  background-color: #fff;
   transition: all 0.3s ease;
 
   ${props => props.isOpen && css`
@@ -137,17 +144,19 @@ const MobileMenu = styled.div`
     width: 100%;
     background-color: ${colors.foreground};
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 3rem;
   }
 `;
 
 const AppHeaderNavList = styled.ul`
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   margin: 0;
   list-style: none;
 
   @media (max-width: 768px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 100%;
   }
 `;
@@ -166,6 +175,20 @@ const AppHeaderQuickNewButton = styled(StyledDropdownButton)`
     width: 100%;
     margin-right: 0;
     margin-bottom: 10px;
+  }
+`;
+
+const AdminText = styled.div`
+  display: none;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+
+  @media (max-width: 768px) {
+    display: block;
   }
 `;
 
@@ -236,6 +259,8 @@ class Header extends React.Component {
     return (
       <AppHeader>
         <AppHeaderContent>
+          {/* Admin text visible only on mobile */}
+          <AdminText>Site Admin</AdminText>
           <HamburgerMenu onClick={this.toggleMobileMenu}>
             <HamburgerLine isOpen={isMobileMenuOpen} />
             <HamburgerLine isOpen={isMobileMenuOpen} />

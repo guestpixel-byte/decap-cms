@@ -28,28 +28,12 @@ const cardOutsideWidth = `300px`;
 const StyledModal = styled(Modal)`
   display: grid;
   grid-template-rows: 120px auto;
-  width: calc(${cardOutsideWidth} + 20px);
+  width: 100%;
+  max-width: 900px;
+  margin: 0 2rem;
   background-color: ${props => props.isPrivate && colors.grayDark};
 
-  @media (min-width: 800px) {
-    width: calc(${cardOutsideWidth} * 2 + 20px);
-  }
 
-  @media (min-width: 1120px) {
-    width: calc(${cardOutsideWidth} * 3 + 20px);
-  }
-
-  @media (min-width: 1440px) {
-    width: calc(${cardOutsideWidth} * 4 + 20px);
-  }
-
-  @media (min-width: 1760px) {
-    width: calc(${cardOutsideWidth} * 5 + 20px);
-  }
-
-  @media (min-width: 2080px) {
-    width: calc(${cardOutsideWidth} * 6 + 20px);
-  }
 
   h1 {
     color: ${props => props.isPrivate && colors.textFieldBorder};

@@ -34,6 +34,7 @@ const SidebarContainer = styled.aside`
   max-width: 300px;
   width: 100%;
   padding: 8px 0 12px;
+  padding-bottom: 1.5rem;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -47,9 +48,6 @@ const SidebarContainer = styled.aside`
     display: flex;
     justify-content: center;
 
-    @media (max-width: 768px) {
-      width: 40px
-    }
 
     h2, ul {
       display: none;
@@ -79,10 +77,6 @@ const CollapseButton = styled.button`
   cursor: pointer;
   font-size: 18px;
   color: #fff;
-
-  @media (max-width: 768px) {
-    margin-right: 0px;
-  }
 `;
 
 const SidebarNavList = styled.ul`

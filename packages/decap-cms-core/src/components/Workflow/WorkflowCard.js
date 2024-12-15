@@ -24,13 +24,14 @@ const styles = {
 const WorkflowLink = styled(Link)`
   display: block;
   padding: 0 18px 18px;
-  height: 200px;
+  padding-bottom: 3rem;
   overflow: hidden;
 `;
 
 const CardCollection = styled.div`
-  font-size: 14px;
-  color: ${colors.textLead};
+  font-size: 1rem;
+  font-weight: bold;  
+  color: #32e6e2;
   text-transform: uppercase;
   margin-top: 12px;
   text-overflow: ellipsis;
@@ -39,7 +40,7 @@ const CardCollection = styled.div`
 `;
 
 const CardTitle = styled.h2`
-  margin: 28px 0 0;
+  margin-top: 1rem;
   color: ${colors.textLead};
 `;
 
@@ -91,6 +92,7 @@ const WorkflowCardContainer = styled.div`
   margin-bottom: 24px;
   position: relative;
   overflow: hidden;
+  background-color: #1e242c;
 
   &:hover ${CardButtonContainer} {
     opacity: 1;
@@ -138,7 +140,7 @@ function WorkflowCard({
         {postAuthor}
         <CardTitle>{title}</CardTitle>
         {(timestamp || authorLastChange) && <CardDate date={timestamp} author={authorLastChange} />}
-        <CardBody>{body}</CardBody>
+        
       </WorkflowLink>
       <CardButtonContainer>
         <DeleteButton onClick={onDelete}>

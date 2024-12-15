@@ -29,10 +29,13 @@ import WorkflowList from './WorkflowList';
 const WorkflowContainer = styled.div`
   padding: ${lengths.pageMargin} 0;
   height: 100vh;
+  width: 100%;
+  max-width: 1280px;
 `;
 
 const WorkflowTop = styled.div`
   ${components.cardTop};
+  background-color: #12181f;
 `;
 
 const WorkflowTopRow = styled.div`

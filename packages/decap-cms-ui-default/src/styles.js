@@ -229,7 +229,7 @@ const buttons = {
     &:focus,
     &:hover {
       color: ${colorsRaw.white};
-      background-color: #555a65;
+      background-color: #1e242c;
     }
   `,
   grayText: css`

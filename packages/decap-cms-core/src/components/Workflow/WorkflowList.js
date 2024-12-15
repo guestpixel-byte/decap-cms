@@ -15,8 +15,18 @@ import { selectEntryCollectionTitle } from '../../reducers/collections';
 const WorkflowListContainer = styled.div`
   min-height: 60%;
   display: grid;
-  grid-template-columns: 33.3% 33.3% 33.3%;
+  grid-template-columns: repeat(3, 1fr); /* Default to 3 columns */
+  gap: 16px; /* Optional: Adjust spacing between items */
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* 1 column for small screens */
+  }
 `;
+
 
 const WorkflowListContainerOpenAuthoring = styled.div`
   min-height: 60%;
@@ -55,12 +65,14 @@ const styles = {
       }
     `,
   column: css`
-    margin: 0 20px;
+    padding: 1rem;
     transition: background-color 0.5s ease;
     border: 2px dashed transparent;
-    border-radius: 4px;
+    border-radius: 12px;
     position: relative;
     height: 100%;
+    background-color: #12181f;
+    min-height: 12rem;
   `,
   columnHovered: css`
     border-color: ${colors.active};

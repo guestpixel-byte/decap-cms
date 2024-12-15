@@ -16,15 +16,17 @@ function ReactModalGlobalStyles() {
   );
 }
 
+
 const styleStrings = {
   modalBody: `
     ${shadows.dropDeep};
-    background-color: #fff;
+    background-color: #060b10;
     border-radius: ${lengths.borderRadius};
     height: 80%;
     text-align: center;
     max-width: 2200px;
     padding: 20px;
+    width: 100%;
 
     &:focus {
       outline: none;
