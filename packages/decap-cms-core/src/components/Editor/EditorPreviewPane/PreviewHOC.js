@@ -3,20 +3,31 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 class PreviewHOC extends React.Component {
+  /**
+   * Only re-render on value change, but always re-render objects and lists.
+   * Their child widgets will each also be wrapped with this component, and
+   * will only be updated on value change.
+   */
   shouldComponentUpdate(nextProps) {
-    return this.props.value !== nextProps.value || this.props.fieldsMetaData !== nextProps.fieldsMetaData;
+    const isWidgetContainer = ['object', 'list'].includes(nextProps.field.get('widget'));
+    return (
+      isWidgetContainer ||
+      this.props.value !== nextProps.value ||
+      this.props.fieldsMetaData !== nextProps.fieldsMetaData ||
+      this.props.getAsset !== nextProps.getAsset
+    );
   }
 
   render() {
-    const { previewComponent, className, ...props } = this.props;
-    return React.createElement(previewComponent, { className, ...props });
+    const { previewComponent, ...props } = this.props;
+    return React.createElement(previewComponent, props);
   }
 }
 
 PreviewHOC.propTypes = {
   previewComponent: PropTypes.func.isRequired,
-  value: PropTypes.any,
-  fieldsMetaData: PropTypes.object,
+  field: ImmutablePropTypes.map.isRequired,
+  value: PropTypes.oneOfType([PropTypes.node, PropTypes.object, PropTypes.string, PropTypes.bool]),
 };
 
 export default PreviewHOC;

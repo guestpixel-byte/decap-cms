@@ -27,7 +27,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
 }
 PreviewContent.propTypes = {
-  previewComponent: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.node]).isRequired,
+  previewComponent: _propTypes.default.func.isRequired,
   previewProps: _propTypes.default.object
 };
 var _default = exports.default = PreviewContent;
