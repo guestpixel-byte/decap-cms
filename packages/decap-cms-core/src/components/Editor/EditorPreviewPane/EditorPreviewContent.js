@@ -27,7 +27,7 @@ class PreviewContent extends React.Component {
 }
 
 PreviewContent.propTypes = {
-  previewComponent: PropTypes.func.isRequired,
+  previewComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
   previewProps: PropTypes.object,
 };
 
