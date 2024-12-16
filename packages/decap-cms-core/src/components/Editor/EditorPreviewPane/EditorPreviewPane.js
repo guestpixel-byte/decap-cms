@@ -33,6 +33,8 @@ const PreviewPaneFrame = styled(Frame)`
   border: none;
   background: #fff;
   border-radius: ${lengths.borderRadius};
+
+
 `;
 
 export class PreviewPane extends React.Component {

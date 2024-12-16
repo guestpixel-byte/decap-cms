@@ -131,10 +131,12 @@ const ToolbarSectionMain = styled.div`
 const ToolbarSubSectionFirst = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 
   @media (max-width: 768px) {
     width: 100%;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
   }
 `;
 

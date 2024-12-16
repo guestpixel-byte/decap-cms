@@ -29,10 +29,13 @@ const StyledModal = styled(Modal)`
   display: grid;
   grid-template-rows: 120px auto;
   width: 100%;
-  max-width: 900px;
+  max-width: 920px;
   margin: 0 2rem;
   background-color: ${props => props.isPrivate && colors.grayDark};
 
+  @media (max-width: 768px) {
+    gap: 2rem;
+  }
 
 
   h1 {

@@ -18,6 +18,12 @@ const CloseButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    position: relative;
+    left: 0;
+    top: 0;
+  }
 `;
 
 const LibraryTitle = styled.h1`

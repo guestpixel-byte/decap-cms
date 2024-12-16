@@ -15,7 +15,7 @@ const Card = styled.div`
   border-radius: ${lengths.borderRadius};
   cursor: pointer;
   overflow: hidden;
-  background-color: ${props => props.isPrivate && colors.textFieldBorder};
+  background-color: #12181F;
 
   &:focus {
     outline: none;

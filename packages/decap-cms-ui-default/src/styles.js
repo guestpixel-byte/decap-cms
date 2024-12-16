@@ -516,6 +516,7 @@ function GlobalStyles() {
 
         button {
           font-family: inherit;
+          color: #000;
         }
 
         img {

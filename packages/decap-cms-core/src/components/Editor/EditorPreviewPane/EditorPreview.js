@@ -21,11 +21,20 @@ export default class Preview extends React.Component {
     if (!collection || !fields) {
       return null;
     }
+
     return (
       <PreviewContainer>
-        {fields.filter(isVisible).map(field => (
-          <div key={field.get('name')}>{widgetFor(field.get('name'))}</div>
-        ))}
+        {fields.filter(isVisible).map(field => {
+          // Dynamically passing classes via widgetFor
+          const fieldName = field.get('name');
+          const fieldClass = field.get('widget'); // You can modify this to set custom class based on the widget type
+
+          return (
+            <div key={fieldName} className={`field-wrapper ${fieldClass}`}>
+              {widgetFor(fieldName)}
+            </div>
+          );
+        })}
       </PreviewContainer>
     );
   }

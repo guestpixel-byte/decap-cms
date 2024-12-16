@@ -19,8 +19,8 @@ class PreviewHOC extends React.Component {
   }
 
   render() {
-    const { previewComponent, ...props } = this.props;
-    return React.createElement(previewComponent, props);
+    const { previewComponent, className, ...props } = this.props;
+    return React.createElement(previewComponent, { className, ...props });
   }
 }
 
