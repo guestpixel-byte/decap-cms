@@ -18,22 +18,37 @@ const PreviewPaneFrame = styled(Frame)`
 
 export class PreviewPane extends React.Component {
   render() {
-    const { entry, collection, config } = this.props;
+    const { entry, collection, config, widgetsFor } = this.props;
 
+    // Ensure the entry data exists
     if (!entry || !entry.get('data')) {
       return null;
     }
 
+    // Fetch the preview template for the collection
+    const collectionName = collection.get('name');
     const previewComponent =
-      getPreviewTemplate(collection.get('name')) || (() => <div>No Preview Template</div>);
+      getPreviewTemplate(collectionName) || (() => <div>No Preview Template Found</div>);
 
+    console.log("Collection Name:", collectionName);
+    console.log("Preview Component:", previewComponent);
+
+    // Define the props to pass to the preview component
     const previewProps = {
       ...this.props,
+      widgetFor: name => {
+        if (typeof widgetsFor === 'function') {
+          return widgetsFor(name);
+        }
+        console.warn(`widgetFor is not a function for name: ${name}`);
+        return null; // Fallback for missing widgetsFor
+      },
       entry,
       document: null,
       window: null,
     };
 
+    // Retrieve the preview styles
     const styleEls = getPreviewStyles().map((style, i) => {
       if (style.raw) {
         return <style key={i}>{style.value}</style>;
@@ -41,6 +56,7 @@ export class PreviewPane extends React.Component {
       return <link key={i} href={style.value} type="text/css" rel="stylesheet" />;
     });
 
+    // Define initial content for the iframe
     const initialContent = `
 <!DOCTYPE html>
 <html>
@@ -49,6 +65,7 @@ export class PreviewPane extends React.Component {
 </html>
 `;
 
+    // Render the preview pane
     return (
       <PreviewPaneFrame id="preview-pane" head={styleEls} initialContent={initialContent}>
         <FrameContextConsumer>
@@ -68,6 +85,10 @@ PreviewPane.propTypes = {
   entry: PropTypes.object.isRequired,
   collection: PropTypes.object.isRequired,
   config: PropTypes.object,
+  widgetsFor: PropTypes.func.isRequired,
 };
 
-export default connect(state => ({ config: state.config }))(PreviewPane);
+export default connect(state => ({
+  config: state.config,
+  widgetsFor: state.widgetsFor, // Ensure widgetsFor is passed from Redux
+}))(PreviewPane);
