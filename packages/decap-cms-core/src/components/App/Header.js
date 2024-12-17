@@ -24,7 +24,7 @@ const styles = {
     color: ${colors.active};
   `,
   logoutButton: css`
-    color: red;
+    color: #C72D2D;
     font-weight: bold;
   `,
 };

@@ -31,8 +31,10 @@ const PreviewPaneFrame = styled(Frame)`
   width: 100%;
   height: 100%;
   border: none;
-  background: #fff;
+  background: #1E242C;
   border-radius: ${lengths.borderRadius};
+  
+
 
 
 `;
@@ -248,9 +250,9 @@ export class PreviewPane extends React.Component {
 
     const initialContent = `
 <!DOCTYPE html>
-<html>
+<html style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">
   <head><base target="_blank"/></head>
-  <body><div></div></body>
+  <body style="width: 100%; padding: 1rem;"><div></div></body>
 </html>
 `;
 

@@ -80,7 +80,6 @@ const CardBody = styled.div`
     left: -20%;
     height: 140%;
     width: 140%;
-    box-shadow: inset 0 -15px 24px ${colorsRaw.white};
   }
 `;
 

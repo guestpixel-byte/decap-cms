@@ -40,9 +40,6 @@ const CollectionContainer = styled.div`
 
 const CollectionMain = styled.main`
   width: 100%;
-  border: 2px solid #000;
-
-  
 `;
 
 const SearchResultContainer = styled.div`

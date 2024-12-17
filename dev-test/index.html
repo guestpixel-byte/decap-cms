@@ -117,7 +117,8 @@
     var PostPreview = createClass({
       render: function() {
         var entry = this.props.entry;
-        return h('div', {},
+        return h('div', {"className": "bg"},
+        h('div', {},
           h('div', {className: "cover"},
             h('h1', {}, entry.getIn(['data', 'title'])),
             this.props.widgetFor('image'),
@@ -126,6 +127,7 @@
             h('small', {}, "Written " + entry.getIn(['data', 'date']))
           ),
           h('div', {"className": "text"}, this.props.widgetFor('body'))
+      )
         );
       }
     });
@@ -202,6 +204,10 @@
 
       body {
         padding: 20px;
+      }
+
+      .bg {
+        background-color: #000;
       }
 
       h1 {

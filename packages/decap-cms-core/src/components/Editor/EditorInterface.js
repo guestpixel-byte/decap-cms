@@ -107,7 +107,8 @@ const EditorContainer = styled.div`
 
 const Editor = styled.div`
   height: fit-content;
-  margin: 0 auto;
+  margin: 1rem auto;
+
   
 `;
 
