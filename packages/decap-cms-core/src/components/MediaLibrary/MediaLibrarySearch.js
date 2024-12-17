@@ -8,7 +8,7 @@ const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  width: 400px;
+  width: 100%;
 `;
 
 const SearchInput = styled.input`

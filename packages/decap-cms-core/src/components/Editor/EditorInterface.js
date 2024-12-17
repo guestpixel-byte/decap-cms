@@ -51,14 +51,13 @@ function ReactSplitPaneGlobalStyles() {
           width: 2px;
           cursor: col-resize;
           position: relative;
-          background: none;
 
           &:before {
             content: '';
-            width: 2px;
+            width: 4px;
             height: 100%;
             position: relative;
-            background-color: ${colors.textFieldBorder};
+            background-color: #32E6E2;
             display: block;
             z-index: 10;
             transition: background-color ${transitions.main};
