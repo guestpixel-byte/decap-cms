@@ -16,11 +16,18 @@ const LibraryTop = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 `;
 
 const RowContainer = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 512px) {
+    .RowContainer {
+      flex-direction: column;
+    }
+  }
 `;
 
 const ButtonsContainer = styled.div`
