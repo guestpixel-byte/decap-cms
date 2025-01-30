@@ -250,7 +250,7 @@ export class PreviewPane extends React.Component {
 
     const initialContent = `
 <!DOCTYPE html>
-<html style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">
+<html style="display: flex; height: 100%; width: 100%;">
   <head><base target="_blank"/></head>
   <body style="width: 100%; padding: 1rem;"><div></div></body>
 </html>
