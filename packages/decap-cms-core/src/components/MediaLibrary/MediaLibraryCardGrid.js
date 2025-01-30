@@ -148,6 +148,11 @@ function PaginatedGrid({
 const CardGridContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
+
+
+  @media (max-width: 512px) {
+    margin-top: 3rem;
+  }
 `;
 
 const CardGrid = styled.div`

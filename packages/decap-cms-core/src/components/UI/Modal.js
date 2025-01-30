@@ -22,7 +22,7 @@ const styleStrings = {
     ${shadows.dropDeep};
     background-color: #060b10;
     border-radius: ${lengths.borderRadius};
-    height: 80%;
+    height: 90%;
     text-align: center;
     max-width: 2200px;
     padding: 20px;

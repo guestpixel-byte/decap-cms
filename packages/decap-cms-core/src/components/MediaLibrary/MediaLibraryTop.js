@@ -24,9 +24,8 @@ const RowContainer = styled.div`
   justify-content: space-between;
 
   @media (max-width: 512px) {
-    .RowContainer {
-      flex-direction: column;
-    }
+    flex-direction: column;
+    gap: .5rem;
   }
 `;
 
