@@ -149,10 +149,8 @@ const CardGridContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
 
+  margin-top: 5rem;
 
-  @media (max-width: 512px) {
-    margin-top: 3rem;
-  }
 `;
 
 const CardGrid = styled.div`

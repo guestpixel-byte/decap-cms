@@ -17,20 +17,21 @@ const LibraryTop = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+  gap: .5rem;
 `;
 
 const RowContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  gap: .5rem;
 
-  @media (max-width: 512px) {
-    flex-direction: column;
-    gap: .5rem;
-  }
+
 `;
 
 const ButtonsContainer = styled.div`
   flex-shrink: 0;
+  margin-left: auto;
 `;
 
 function MediaLibraryTop({
