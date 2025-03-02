@@ -1,6 +1,92 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { AuthenticationPage, Icon } from 'decap-cms-ui-default';
+
+const LoginButtonIcon = styled(Icon)`
+  margin-right: 18px;
+`;
+
+export default class GitHubAuthenticationPage extends React.Component {
+  static propTypes = {
+    onLogin: PropTypes.func.isRequired,
+    inProgress: PropTypes.bool,
+    base_url: PropTypes.string,
+    siteId: PropTypes.string,
+    authEndpoint: PropTypes.string,
+    config: PropTypes.object.isRequired,
+    clearHash: PropTypes.func,
+    t: PropTypes.func.isRequired,
+  };
+
+  state = {};
+
+  handleLogin = (e) => {
+    e.preventDefault();
+    
+    // Build the dynamic auth URL
+    const authUrl = `${this.props.base_url}${this.props.authEndpoint}?site=${encodeURIComponent(window.location.origin)}`;
+
+    // Redirect the user to the authentication system
+    window.location.href = authUrl;
+  };
+
+  renderLoginButton = () => {
+    const { inProgress, t } = this.props;
+    return inProgress ? (
+      t('auth.loggingIn')
+    ) : (
+      <>
+        <LoginButtonIcon type="github" />
+        {t('auth.loginWithGitHub')}
+      </>
+    );
+  };
+
+  render() {
+    const { inProgress, config, t } = this.props;
+    const { loginError } = this.state;
+
+    return (
+      <AuthenticationPage
+        onLogin={this.handleLogin}
+        loginDisabled={inProgress}
+        loginErrorMessage={loginError}
+        logoUrl={config.logo_url}
+        siteUrl={config.site_url}
+        renderButtonContent={this.renderLoginButton}
+        t={t}
+      />
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from '@emotion/styled';
 import { NetlifyAuthenticator } from 'decap-cms-lib-auth';
 import { AuthenticationPage, Icon } from 'decap-cms-ui-default';
 
@@ -149,3 +235,4 @@ export default class GitHubAuthenticationPage extends React.Component {
     );
   }
 }
+*/
