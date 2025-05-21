@@ -46,7 +46,7 @@ function renderPageLogo(logoUrl) {
   return <DecapLogoIcon size="300px" type="decap-cms" />;
 }
 */
-
+ 
 function renderPageLogo(logoUrl) {
   const fallbackLogo = '/my-logo.png'; // or use `require('./my-logo.png')`
   return <CustomLogoIcon url={logoUrl || fallbackLogo} />;
