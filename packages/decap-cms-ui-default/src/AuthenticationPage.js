@@ -33,25 +33,25 @@ const NetlifyCreditIcon = styled(Icon)`
 function CustomLogoIcon({ url }) {
   return (
     <CustomIconWrapper>
-      <img src={url} alt="Logo" />
+      <img src='/img/cypressio.png' alt="Logo" />
     </CustomIconWrapper>
   );
 }
 
-/**
+
 function renderPageLogo(logoUrl) {
   if (logoUrl) {
     return <CustomLogoIcon url={logoUrl} />;
   }
   return <DecapLogoIcon size="300px" type="decap-cms" />;
 }
-*/
 
+/** 
 function renderPageLogo(logoUrl) {
   const fallbackLogo = '/img/cypressio.png'; // or use `require('./my-logo.png')`
   return <CustomLogoIcon url={logoUrl || fallbackLogo} />;
 }
-
+*/
 
 const LoginButton = styled.button`
   ${buttons.button};
