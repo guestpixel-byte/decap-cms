@@ -38,19 +38,15 @@ function CustomLogoIcon({ url }) {
   );
 }
 
-/** 
+
 function renderPageLogo(logoUrl) {
   if (logoUrl) {
     return <CustomLogoIcon url={logoUrl} />;
   }
   return <DecapLogoIcon size="300px" type="decap-cms" />;
 }
-*/
+
  
-function renderPageLogo(logoUrl) {
-  const fallbackLogo = '/my-logo.png'; // or use `require('./my-logo.png')`
-  return <CustomLogoIcon url={logoUrl || fallbackLogo} />;
-}
 
 
 const LoginButton = styled.button`
